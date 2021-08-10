@@ -6,6 +6,9 @@
  */
 
 public class LoadedDie {
+    // Class attributes
+    private int favoredFace;    // The favored face of the die
+    private int percentage;     // The percentage to represent more times per hundred
 
     /**
      * The constructor performs an initial roll of the die.
@@ -15,5 +18,7 @@ public class LoadedDie {
      *                              the loaded number (instead of uniform random)
      */
     public LoadedDie(int loadNumber, int moreTimesPerHundred) {
+        favoredFace = loadNumber;
+        percentage = moreTimesPerHundred;
     }
 }
