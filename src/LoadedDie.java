@@ -42,7 +42,7 @@ public class LoadedDie {
         Random random = new Random();
 
         // Randomize a percentage
-        int randomPercent = random.nextInt(RANGE) + 1; // Keep 100 inclusive
+        int randomPercent = random.nextInt(RANGE);
 
         // If the randomPercent is less than the percentage determined in the constructor,
         // then assign dieValue to favoredFace
