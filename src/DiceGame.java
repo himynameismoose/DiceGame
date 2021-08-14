@@ -11,14 +11,25 @@ public class DiceGame {
     private static final int PERCENTAGE = 30;           // The percentage the dice will land on a favored face
     private static final int MAX_ROLLS = 10;            // Maximum of 10 rolls per game played
 
+    // Class Attributes
+    private static int rollCount = 1;  // Counts the number of rolls
+
     /**
      * The start of the game
      *
      * @param args  String arguments
      */
     public static void main(String[] args) {
+        // Create LoadedDie objects for CPU and player
+        LoadedDie cpuDie = new LoadedDie(CPU_FAVORED_FACE, PERCENTAGE);
+
         // Print out the intro
         intro();
+
+        while (rollCount <= MAX_ROLLS) {
+            System.out.println("Roll " + rollCount + " of " + MAX_ROLLS + ":");
+            System.out.println("I rolled a " + cpuDie.roll());
+        }
     }
 
     /**
