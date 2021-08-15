@@ -14,7 +14,10 @@ public class DiceGame {
     private static final int MAX_ROLLS = 10;            // Maximum of 10 rolls per game played
 
     // Class Attributes
-    private static int rollCount = 1;  // Counts the number of rolls
+    private static int rollCount = 1;   // Counts the number of rolls
+    private static int playerRoll;      // The value of the player die
+    private static int cpuWins;         // Counts the number of CPU wins
+    private static int playerWins;      // Counts the number of player wins
 
     /**
      * The start of the game
@@ -25,7 +28,7 @@ public class DiceGame {
         // Create a Scanner object
         Scanner scanner = new Scanner(System.in);   // Will be taking in scanner inputs from
                                                     // player (Scanner input)
-        String userInput = "";
+        String userInput;
 
         // Create LoadedDie objects for CPU and player
         LoadedDie cpuDie = new LoadedDie(CPU_FAVORED_FACE, PERCENTAGE);
@@ -34,9 +37,12 @@ public class DiceGame {
         // Print out the intro
         intro();
 
+
         while (rollCount <= MAX_ROLLS) {
             System.out.println("Roll " + rollCount + " of " + MAX_ROLLS + ":");
-            System.out.println("I rolled a " + cpuDie.roll());
+            // The value of CPU die
+            int cpuRoll = cpuDie.roll();
+            System.out.println("I rolled a " + cpuRoll);
             // Ask user if they want to roll
             System.out.print("Ready to roll? (Press ENTER when ready)");
             userInput = scanner.nextLine();
@@ -45,12 +51,30 @@ public class DiceGame {
             // continue if true, otherwise, end the game
             if (userInput.equals("")) {
                 // If user presses the enter key
-                System.out.println("You rolled a " + playerDie.roll());
+                playerRoll = playerDie.roll();
+                System.out.println("You rolled a " + playerRoll);
                 // Because player continued to play, the game count increments
                 rollCount++;
                 System.out.println();
             }
 
+            // Count the wins by CPU/player
+            if (cpuRoll > playerRoll) {
+                cpuWins++;
+            } else {
+                playerWins++;
+            }
+        }
+
+        // Print out the game stats at the end of game
+        System.out.println("I won " + cpuWins + " times.");
+        System.out.println("You won " + playerWins + " times.");
+
+        // Print out the winner of the game
+        if (cpuWins > playerWins) {
+            System.out.println("Grand winner is me!");
+        } else {
+            System.out.println("Grand winner is you!");
         }
     }
 
@@ -58,10 +82,11 @@ public class DiceGame {
      * The welcome message of the game
      */
     public static void intro() {
-        System.out.println("This is a game of you versus the computer. We will each \n" +
-                           "have one die. We roll our own die and the higher number \n" +
-                           "wins. We roll ten times and the one with the higher number \n" +
-                           "of wins is the grand winner.");
+        System.out.println("""
+                This is a game of you versus the computer. We will each\s
+                have one die. We roll our own die and the higher number\s
+                wins. We roll ten times and the one with the higher number\s
+                of wins is the grand winner.""");
         System.out.println();
     }
 }
