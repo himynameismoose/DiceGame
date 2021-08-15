@@ -37,7 +37,6 @@ public class DiceGame {
         // Print out the intro
         intro();
 
-
         while (rollCount <= MAX_ROLLS) {
             System.out.println("Roll " + rollCount + " of " + MAX_ROLLS + ":");
             // The value of CPU die
@@ -59,11 +58,10 @@ public class DiceGame {
             }
 
             // Count the wins by CPU/player
-            if (cpuRoll > playerRoll) {
+            if (cpuRoll > playerRoll)
                 cpuWins++;
-            } else if (playerRoll > cpuRoll) {
+            else if (playerRoll > cpuRoll)
                 playerWins++;
-            }
         }
 
         // Print out the game stats at the end of game
@@ -71,10 +69,17 @@ public class DiceGame {
         System.out.println("You won " + playerWins + " times.");
 
         // Print out the winner of the game
-        if (cpuWins > playerWins) {
+        if (cpuWins > playerWins)
             System.out.println("Grand winner is me!");
-        } else {
+        else
             System.out.println("Grand winner is you!");
+
+        // Prompt user to play again
+        System.out.print("Ready to play? (no to quit) ");
+        userInput = scanner.nextLine().toLowerCase();
+        if (userInput.equals("no")) {
+            System.out.println();
+            System.out.println("Thanks for playing!");
         }
     }
 
