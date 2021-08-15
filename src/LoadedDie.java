@@ -13,9 +13,8 @@ public class LoadedDie {
     private static final int RANGE = 100;   // Range to define the percentage dependent
                                             // on whether a die lands on a loaded side
     // Class attributes
-    private int favoredFace;    // The favored face of the die
-    private int percentage;     // The percentage to represent more times per hundred
-    private int dieValue;       // The die's value after a roll
+    private final int favoredFace;    // The favored face of the die
+    private final int percentage;     // The percentage to represent more times per hundred
 
     /**
      * The constructor performs an initial roll of the die.
@@ -46,6 +45,8 @@ public class LoadedDie {
 
         // If the randomPercent is less than the percentage determined in the constructor,
         // then assign dieValue to favoredFace
+        // The die's value after a roll
+        int dieValue;
         if (randomPercent < percentage)
             dieValue = favoredFace;
         else                                        // Otherwise, the randomly roll the die
