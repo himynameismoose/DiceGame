@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 /**
- * This program is to use LoadedDie to create a rolling dice game between CPU and player
+ * This program is to use LoadedDie to create a rolling dice game between CPU and player.
  *
  * @author Mershelle Rivera
  * @version 1.0
@@ -61,7 +61,7 @@ public class DiceGame {
             // Count the wins by CPU/player
             if (cpuRoll > playerRoll) {
                 cpuWins++;
-            } else {
+            } else if (playerRoll > cpuRoll) {
                 playerWins++;
             }
         }
