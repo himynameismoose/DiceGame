@@ -20,23 +20,37 @@ public class DiceGame {
     private static int playerWins;      // Counts the number of player wins
 
     /**
-     * The start of the game
+     * This will start the application
      *
      * @param args  String arguments
      */
     public static void main(String[] args) {
-        // Create a Scanner object
-        Scanner scanner = new Scanner(System.in);   // Will be taking in scanner inputs from
-                                                    // player (Scanner input)
-        String userInput;
+        intro();    // Print out the intro
+        start();    // Starts the game
+    }
 
+    /**
+     * The welcome message of the game
+     */
+    public static void intro() {
+        System.out.println("""
+                This is a game of you versus the computer. We will each\s
+                have one die. We roll our own die and the higher number\s
+                wins. We roll ten times and the one with the higher number\s
+                of wins is the grand winner.""");
+        System.out.println();
+    }
+
+    /**
+     * This methods starts the game
+     */
+    public static void start() {
         // Create LoadedDie objects for CPU and player
         LoadedDie cpuDie = new LoadedDie(CPU_FAVORED_FACE, PERCENTAGE);
         LoadedDie playerDie = new LoadedDie(PLAYER_FAVORED_FACE, PERCENTAGE);
-
-        // Print out the intro
-        intro();
-
+        // Create Scanner object to take in user input
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
         while (rollCount <= MAX_ROLLS) {
             System.out.println("Roll " + rollCount + " of " + MAX_ROLLS + ":");
             // The value of CPU die
@@ -81,17 +95,5 @@ public class DiceGame {
             System.out.println();
             System.out.println("Thanks for playing!");
         }
-    }
-
-    /**
-     * The welcome message of the game
-     */
-    public static void intro() {
-        System.out.println("""
-                This is a game of you versus the computer. We will each\s
-                have one die. We roll our own die and the higher number\s
-                wins. We roll ten times and the one with the higher number\s
-                of wins is the grand winner.""");
-        System.out.println();
     }
 }
