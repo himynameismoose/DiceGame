@@ -77,13 +77,8 @@ public class DiceGame {
                 playerWins++;
         }
 
-        gameStats();
-
-        // Print out the winner of the game
-        if (cpuWins > playerWins)
-            System.out.println("Grand winner is me!");
-        else
-            System.out.println("Grand winner is you!");
+        gameStats();    // Print the game stats
+        printWinner();  // Prints the winner of the game
 
         // Prompt user to play again
         System.out.print("Ready to play? (no to quit) ");
@@ -141,5 +136,18 @@ public class DiceGame {
         // Print out the game stats at the end of game
         System.out.println("I won " + cpuWins + " times.");
         System.out.println("You won " + playerWins + " times.");
+    }
+
+    /**
+     * This method will print the winner of the game
+     */
+    public static void printWinner() {
+        // Print out the winner of the game
+        if (cpuWins > playerWins)
+            System.out.println("Grand winner is me!");
+        else if (cpuWins == playerWins)
+            System.out.println("It's a tie!");
+        else
+            System.out.println("Grand winner is you!");
     }
 }
