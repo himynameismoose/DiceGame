@@ -55,8 +55,6 @@ public class DiceGame {
      * @param playerDie LoadedDie object to represent the user's die
      */
     public static void start(Scanner scanner, LoadedDie cpuDie, LoadedDie playerDie) {
-        String userInput;   // To hold console inputs from user
-
         // Have the game run until 10 rolls
         while (rollCount <= MAX_ROLLS) {
             System.out.println();
@@ -65,9 +63,9 @@ public class DiceGame {
             // CPU rolls die, then the user will roll die
             int cpuRoll = cpuTurn(cpuDie);
             int userRoll = userTurn(scanner, playerDie);
-            if (userRoll < 1) {
+            if (userRoll < 1)
                 rollCount = 11; // To get out of while loop
-            }
+
             // Because player continued to play, the game count increments
             rollCount++;
             // Count the wins by CPU/player
@@ -77,16 +75,9 @@ public class DiceGame {
                 playerWins++;
         }
 
-        gameStats();    // Print the game stats
-        printWinner();  // Prints the winner of the game
-
-        // Prompt user to play again
-        System.out.print("Ready to play? (no to quit) ");
-        userInput = scanner.nextLine().toLowerCase();
-        if (userInput.equals("no")) {
-            System.out.println();
-            System.out.println("Thanks for playing!");
-        }
+        gameStats();           // Print the game stats
+        printWinner();         // Prints the winner of the game
+        playAgain(scanner);    // Ask user if ready to play (again)
     }
 
     /**
@@ -149,5 +140,19 @@ public class DiceGame {
             System.out.println("It's a tie!");
         else
             System.out.println("Grand winner is you!");
+    }
+
+    /**
+     * This method is to prompt the user to play again
+     */
+    public static void playAgain(Scanner scanner) {
+        String userInput;   // To hold console inputs from user
+        // Prompt user to play again
+        System.out.print("Ready to play? (no to quit) ");
+        userInput = scanner.nextLine().toLowerCase();
+        if (userInput.equals("no")) {
+            System.out.println();
+            System.out.println("Thanks for playing!");
+        }
     }
 }
