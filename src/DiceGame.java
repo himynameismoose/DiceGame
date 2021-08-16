@@ -15,7 +15,6 @@ public class DiceGame {
 
     // Class Attributes
     private static int rollCount = 1;   // Counts the number of rolls
-    private static int userRoll;      // The value of the player die
     private static int cpuWins;         // Counts the number of CPU wins
     private static int playerWins;      // Counts the number of player wins
 
@@ -40,12 +39,12 @@ public class DiceGame {
      * The welcome message of the game
      */
     public static void intro() {
+        System.out.println();
         System.out.println("""
                 This is a game of you versus the computer. We will each\s
                 have one die. We roll our own die and the higher number\s
                 wins. We roll ten times and the one with the higher number\s
                 of wins is the grand winner.""");
-        System.out.println();
     }
 
     /**
@@ -60,13 +59,17 @@ public class DiceGame {
 
         // Have the game run until 10 rolls
         while (rollCount <= MAX_ROLLS) {
+            System.out.println();
+            // Print the roll count of the game
+            System.out.println("Roll " + rollCount + " of " + MAX_ROLLS + ":");
+            // CPU rolls die, then the user will roll die
             int cpuRoll = cpuTurn(cpuDie);
             int userRoll = userTurn(scanner, playerDie);
-
+            if (userRoll < 1) {
+                rollCount = 11; // To get out of while loop
+            }
             // Because player continued to play, the game count increments
             rollCount++;
-            System.out.println();
-
             // Count the wins by CPU/player
             if (cpuRoll > userRoll)
                 cpuWins++;
@@ -74,9 +77,7 @@ public class DiceGame {
                 playerWins++;
         }
 
-        // Print out the game stats at the end of game
-        System.out.println("I won " + cpuWins + " times.");
-        System.out.println("You won " + playerWins + " times.");
+        gameStats();
 
         // Print out the winner of the game
         if (cpuWins > playerWins)
@@ -99,7 +100,6 @@ public class DiceGame {
      * @param cpuDie The LoadedDie object to represent the CPU die
      */
     public static int cpuTurn(LoadedDie cpuDie) {
-        System.out.println("Roll " + rollCount + " of " + MAX_ROLLS + ":");
         int cpuRoll = cpuDie.roll();    // The value of CPU die
         System.out.println("I rolled a " + cpuRoll);
 
@@ -107,13 +107,16 @@ public class DiceGame {
     }
 
     /**
-     * This method will roll the dice for the user and will return the die value
+     * This method will roll the dice for the user if wished to continue
+     * and returns the value of the die. If the user does not wish to continue,
+     * the method will return -1.
      *
      * @param scanner To read user inputs from console
      * @param userDie LoadedDie object to represent the user's die
      */
     public static int userTurn(Scanner scanner, LoadedDie userDie) {
         String userInput;   // To hold console inputs from user
+        int userRoll;       // To hold the value of the user's die
 
         // Ask user if they want to roll
         System.out.print("Ready to roll? (Press ENTER when ready)");
@@ -124,8 +127,19 @@ public class DiceGame {
             // If user presses the enter key
             userRoll = userDie.roll();
             System.out.println("You rolled a " + userRoll);
+        } else {    // If the userInput is not 'enter key'
+            userRoll = -1;  // Returns a non-die value
         }
 
         return userRoll;
+    }
+
+    /**
+     * This method will print the game stats
+     */
+    public static void gameStats() {
+        // Print out the game stats at the end of game
+        System.out.println("I won " + cpuWins + " times.");
+        System.out.println("You won " + playerWins + " times.");
     }
 }
