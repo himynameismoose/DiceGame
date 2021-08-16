@@ -25,8 +25,15 @@ public class DiceGame {
      * @param args  String arguments
      */
     public static void main(String[] args) {
+        // Create LoadedDie objects for CPU and player
+        LoadedDie cpuDie = new LoadedDie(CPU_FAVORED_FACE, PERCENTAGE);
+        LoadedDie playerDie = new LoadedDie(PLAYER_FAVORED_FACE, PERCENTAGE);
+
+        // Create Scanner object to take in user input
+        Scanner scanner = new Scanner(System.in);
+
         intro();    // Print out the intro
-        start();    // Starts the game
+        start(scanner, cpuDie, playerDie);    // Starts the game
     }
 
     /**
@@ -44,13 +51,9 @@ public class DiceGame {
     /**
      * This methods starts the game
      */
-    public static void start() {
-        // Create LoadedDie objects for CPU and player
-        LoadedDie cpuDie = new LoadedDie(CPU_FAVORED_FACE, PERCENTAGE);
-        LoadedDie playerDie = new LoadedDie(PLAYER_FAVORED_FACE, PERCENTAGE);
-        // Create Scanner object to take in user input
-        Scanner scanner = new Scanner(System.in);
-        String userInput;
+    public static void start(Scanner scanner, LoadedDie cpuDie, LoadedDie playerDie) {
+        String userInput;   // To hold console inputs from user
+
         while (rollCount <= MAX_ROLLS) {
             System.out.println("Roll " + rollCount + " of " + MAX_ROLLS + ":");
             // The value of CPU die
