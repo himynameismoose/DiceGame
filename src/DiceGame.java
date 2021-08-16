@@ -151,6 +151,8 @@ public class DiceGame {
     /**
      * This method is to prompt the user to play again
      * returns 0 if yes, 1 if no
+     *
+     * @param scanner To read user inputs from console
      */
     public static int playAgain(Scanner scanner) {
         int answer = 0;
