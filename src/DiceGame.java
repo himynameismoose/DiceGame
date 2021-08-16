@@ -9,14 +9,13 @@ import java.util.Scanner;
 public class DiceGame {
     // Class Constants
     private static final int CPU_FAVORED_FACE = 6;      // The CPU's favored face
-    private static final int USER_FAVORED_FACE = 1;   // The user's favored face
+    private static final int USER_FAVORED_FACE = 1;     // The user's favored face
     private static final int PERCENTAGE = 30;           // The percentage the dice will land on a favored face
     private static final int MAX_ROLLS = 10;            // Maximum of 10 rolls per game played
 
     // Class Attributes
-    private static int rollCount = 1;   // Counts the number of rolls
     private static int cpuWins;         // Counts the number of CPU wins
-    private static int playerWins;      // Counts the number of player wins
+    private static int userWins;      // Counts the number of player wins
 
     /**
      * This will start the application
@@ -31,8 +30,8 @@ public class DiceGame {
         // Create Scanner object to take in user input
         Scanner scanner = new Scanner(System.in);
 
-        intro();    // Print out the intro
-        start(scanner, cpuDie, playerDie);    // Starts the game
+        int rollCount = 1;                               // Counts the number of rolls
+        start(scanner, cpuDie, playerDie, rollCount);    // Starts the game
     }
 
     /**
@@ -52,9 +51,12 @@ public class DiceGame {
      *
      * @param scanner To read user inputs in the console
      * @param cpuDie LoadedDie object to represent the CPU's die
-     * @param playerDie LoadedDie object to represent the user's die
+     * @param userDie LoadedDie object to represent the user's die
      */
-    public static void start(Scanner scanner, LoadedDie cpuDie, LoadedDie playerDie) {
+    public static void start(Scanner scanner, LoadedDie cpuDie, LoadedDie userDie, int rollCount) {
+        intro();    // Print out the intro
+        cpuWins = 0;
+        userWins = 0;
         // Have the game run until 10 rolls
         while (rollCount <= MAX_ROLLS) {
             System.out.println();
@@ -62,7 +64,7 @@ public class DiceGame {
             System.out.println("Roll " + rollCount + " of " + MAX_ROLLS + ":");
             // CPU rolls die, then the user will roll die
             int cpuRoll = cpuTurn(cpuDie);
-            int userRoll = userTurn(scanner, playerDie);
+            int userRoll = userTurn(scanner, userDie);
             if (userRoll < 1)
                 rollCount = 11; // To get out of while loop
 
@@ -72,12 +74,16 @@ public class DiceGame {
             if (cpuRoll > userRoll)
                 cpuWins++;
             else if (userRoll > cpuRoll)
-                playerWins++;
+                userWins++;
         }
 
         gameStats();           // Print the game stats
         printWinner();         // Prints the winner of the game
-        playAgain(scanner);    // Ask user if ready to play (again)
+        int answer = playAgain(scanner);    // Ask user if ready to play (again)
+        if (answer == 1)
+            goodbye();
+        else
+            start(scanner, cpuDie, userDie, 1);
     }
 
     /**
@@ -126,7 +132,7 @@ public class DiceGame {
     public static void gameStats() {
         // Print out the game stats at the end of game
         System.out.println("I won " + cpuWins + " times.");
-        System.out.println("You won " + playerWins + " times.");
+        System.out.println("You won " + userWins + " times.");
     }
 
     /**
@@ -134,9 +140,9 @@ public class DiceGame {
      */
     public static void printWinner() {
         // Print out the winner of the game
-        if (cpuWins > playerWins)
+        if (cpuWins > userWins)
             System.out.println("Grand winner is me!");
-        else if (cpuWins == playerWins)
+        else if (cpuWins == userWins)
             System.out.println("It's a tie!");
         else
             System.out.println("Grand winner is you!");
@@ -144,15 +150,24 @@ public class DiceGame {
 
     /**
      * This method is to prompt the user to play again
+     * returns 0 if yes, 1 if no
      */
-    public static void playAgain(Scanner scanner) {
+    public static int playAgain(Scanner scanner) {
+        int answer = 0;
         String userInput;   // To hold console inputs from user
         // Prompt user to play again
         System.out.print("Ready to play? (no to quit) ");
         userInput = scanner.nextLine().toLowerCase();
-        if (userInput.equals("no")) {
-            System.out.println();
-            System.out.println("Thanks for playing!");
-        }
+        if (userInput.equals("no"))
+            answer = 1;
+
+        return answer;
+    }
+
+    /**
+     * This method is to print 'goodbye'
+     */
+    public static void goodbye() {
+        System.out.println("Thanks for playing!");
     }
 }
