@@ -9,13 +9,13 @@ import java.util.Scanner;
 public class DiceGame {
     // Class Constants
     private static final int CPU_FAVORED_FACE = 6;      // The CPU's favored face
-    private static final int PLAYER_FAVORED_FACE = 1;   // The user's favored face
+    private static final int USER_FAVORED_FACE = 1;   // The user's favored face
     private static final int PERCENTAGE = 30;           // The percentage the dice will land on a favored face
     private static final int MAX_ROLLS = 10;            // Maximum of 10 rolls per game played
 
     // Class Attributes
     private static int rollCount = 1;   // Counts the number of rolls
-    private static int playerRoll;      // The value of the player die
+    private static int userRoll;      // The value of the player die
     private static int cpuWins;         // Counts the number of CPU wins
     private static int playerWins;      // Counts the number of player wins
 
@@ -27,7 +27,7 @@ public class DiceGame {
     public static void main(String[] args) {
         // Create LoadedDie objects for CPU and player
         LoadedDie cpuDie = new LoadedDie(CPU_FAVORED_FACE, PERCENTAGE);
-        LoadedDie playerDie = new LoadedDie(PLAYER_FAVORED_FACE, PERCENTAGE);
+        LoadedDie playerDie = new LoadedDie(USER_FAVORED_FACE, PERCENTAGE);
 
         // Create Scanner object to take in user input
         Scanner scanner = new Scanner(System.in);
@@ -69,17 +69,17 @@ public class DiceGame {
             // continue if true, otherwise, end the game
             if (userInput.equals("")) {
                 // If user presses the enter key
-                playerRoll = playerDie.roll();
-                System.out.println("You rolled a " + playerRoll);
+                userRoll = playerDie.roll();
+                System.out.println("You rolled a " + userRoll);
                 // Because player continued to play, the game count increments
                 rollCount++;
                 System.out.println();
             }
 
             // Count the wins by CPU/player
-            if (cpuRoll > playerRoll)
+            if (cpuRoll > userRoll)
                 cpuWins++;
-            else if (playerRoll > cpuRoll)
+            else if (userRoll > cpuRoll)
                 playerWins++;
         }
 
