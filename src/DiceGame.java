@@ -61,20 +61,11 @@ public class DiceGame {
         // Have the game run until 10 rolls
         while (rollCount <= MAX_ROLLS) {
             int cpuRoll = cpuTurn(cpuDie);
-            // Ask user if they want to roll
-            System.out.print("Ready to roll? (Press ENTER when ready)");
-            userInput = scanner.nextLine();
+            int userRoll = userTurn(scanner, playerDie);
 
-            // If the userInput is 'enter key'
-            // continue if true, otherwise, end the game
-            if (userInput.equals("")) {
-                // If user presses the enter key
-                userRoll = playerDie.roll();
-                System.out.println("You rolled a " + userRoll);
-                // Because player continued to play, the game count increments
-                rollCount++;
-                System.out.println();
-            }
+            // Because player continued to play, the game count increments
+            rollCount++;
+            System.out.println();
 
             // Count the wins by CPU/player
             if (cpuRoll > userRoll)
@@ -113,5 +104,28 @@ public class DiceGame {
         System.out.println("I rolled a " + cpuRoll);
 
         return cpuRoll;
+    }
+
+    /**
+     * This method will roll the dice for the user and will return the die value
+     *
+     * @param scanner To read user inputs from console
+     * @param userDie LoadedDie object to represent the user's die
+     */
+    public static int userTurn(Scanner scanner, LoadedDie userDie) {
+        String userInput;   // To hold console inputs from user
+
+        // Ask user if they want to roll
+        System.out.print("Ready to roll? (Press ENTER when ready)");
+        userInput = scanner.nextLine();
+
+        // If the userInput is 'enter key'
+        if (userInput.equals("")) {
+            // If user presses the enter key
+            userRoll = userDie.roll();
+            System.out.println("You rolled a " + userRoll);
+        }
+
+        return userRoll;
     }
 }
