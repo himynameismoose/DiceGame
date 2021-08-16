@@ -50,14 +50,18 @@ public class DiceGame {
 
     /**
      * This methods starts the game
+     *
+     * @param scanner To read user inputs in the console
+     * @param cpuDie LoadedDie object to represent the CPU's die
+     * @param playerDie LoadedDie objec to represent the user's die
      */
     public static void start(Scanner scanner, LoadedDie cpuDie, LoadedDie playerDie) {
         String userInput;   // To hold console inputs from user
 
+        // Have the game run until 10 rolls
         while (rollCount <= MAX_ROLLS) {
             System.out.println("Roll " + rollCount + " of " + MAX_ROLLS + ":");
-            // The value of CPU die
-            int cpuRoll = cpuDie.roll();
+            int cpuRoll = cpuDie.roll();    // The value of CPU die
             System.out.println("I rolled a " + cpuRoll);
             // Ask user if they want to roll
             System.out.print("Ready to roll? (Press ENTER when ready)");
